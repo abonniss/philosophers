@@ -1,0 +1,6 @@
+.*.sw*
+objs
+philosophers
+*.a
+.DS_Store
+.DS_STORE
