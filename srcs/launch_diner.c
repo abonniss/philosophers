@@ -3,9 +3,9 @@
 void pick_up_fork(t_philo *philo)
 {
     pthread_mutex_lock(philo->lfork);
-    message_manager();
+    message_manager(philo, TAKEN_FORK);
     pthread_mutex_lock(philo->rfork);
-    printf("Philo[%zu] - has taken a fork\n", philo->philo_ref);
+    message_manager(philo, TAKEN_FORK);
 }
 
 void eat(t_philo *philo)
