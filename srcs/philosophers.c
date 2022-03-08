@@ -28,8 +28,9 @@ void fill_prog_info(char **inputs, t_prog *ptr_prog)
     ptr_prog->time_to_die       = ft_atol(inputs[TIME_TO_DIE_ARG]);
     ptr_prog->time_to_eat       = ft_atol(inputs[TIME_TO_EAT_ARG]);
     ptr_prog->time_to_sleep     = ft_atol(inputs[TIME_TO_SLEEP_ARG]);
+    ptr_prog->finish_mutex      = malloc(sizeof(pthread_mutex_t));
     if (inputs[MUST_EAT_INPUT])
-        ptr_prog->nbr_meal      = ft_atol(inputs[MUST_EAT_INPUT]);
+        ptr_prog->min_meal      = ft_atol(inputs[MUST_EAT_INPUT]);
 }
 
 

@@ -3,7 +3,7 @@
 void pick_up_fork(t_philo *philo)
 {
     pthread_mutex_lock(philo->lfork);
-    printf("Philo[%zu] - has taken a fork\n", philo->philo_ref);
+    message_manager();
     pthread_mutex_lock(philo->rfork);
     printf("Philo[%zu] - has taken a fork\n", philo->philo_ref);
 }
@@ -26,30 +26,38 @@ void *routine(void *node)
 
 int launch_diner(t_prog *prog)
 {
-    int i;
-    t_philo *head;
-    t_philo *node;
+    int         i;
+    t_philo     *head;
+    t_philo     *philo;
+    pthread_t   thread;
 
     head = prog->philo;
-    node = head;
+    philo = head;
     i = 0;
     gettimeofday(&prog->launched_time, NULL);
     while (i != prog->nbr_philosophes)
     {
-        if (pthread_create(&node->thread, NULL, &routine, node) != 0)
+        philo->last_time_eat = prog->launch_time;
+        if (pthread_create(&philo->thread, NULL, &routine, philo) != 0)
             return (EXIT_FAILURE);
-        node = node->next;
+        if (pthread_create(&thread, NULL, &monitor_health, philo) != 0)
+            return (EXIT_FAILURE);
+        pthread_detach(thread);
+        philo = philo->next;
         ++i;
     }
     i = 0;
-    node = head; 
+    philo = head; 
     while (i != prog->nbr_philosophes)
     {
-        if (pthread_join(node->thread, NULL) != 0)
+        if (pthread_join(philo->thread, NULL) != 0)
             return (EXIT_FAILURE);
-        node = node->next;
+        philo = philo->next;
         ++i;
     }
     return (EXIT_SUCCESS);
     
 }
+
+// curent time - lastmeal >= time_to_die = DEADPHILO
+// Si un philo meurt tout les philos s'arretent

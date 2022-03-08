@@ -52,6 +52,7 @@ SRCS += philosophers.c
 SRCS += utils.c
 SRCS += assign_ressources.c
 SRCS += launch_diner.c
+SRCS += utils_functions.c
 
 #HEADERS
 HEADERS += philosophers.h

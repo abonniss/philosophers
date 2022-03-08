@@ -21,16 +21,27 @@
 #include <pthread.h>
 #include <sys/time.h>
 
-# define EXIT_SUCCESS 0
-# define EXIT_FAILURE 1
-# define MIN_INPUT 5
-# define SKIP_PROG_NAME 2
-# define PHILO_ARG 1
-# define TIME_TO_DIE_ARG 2
-# define TIME_TO_EAT_ARG 3
-# define TIME_TO_SLEEP_ARG 4
-# define MUST_EAT_INPUT 5
-# define ALL_THREADS_CREATED 0
+# define EXIT_SUCCESS           0
+# define EXIT_FAILURE           1
+
+# define MIN_INPUT              5
+# define SKIP_PROG_NAME         2
+
+# define PHILO_ARG              1
+# define TIME_TO_DIE_ARG        2
+# define TIME_TO_EAT_ARG        3
+# define TIME_TO_SLEEP_ARG      4
+# define MUST_EAT_INPUT         5
+
+# define ALL_THREADS_CREATED    0
+
+# define TAKEN_FORK             "has taken a fork"
+# define EATING                 "is eating"
+# define SLEEPING               "is sleeping"
+# define THINKING               "is thinking"
+# define DIED                   "died"
+
+# define STOP                   1
 
 typedef struct  s_prog
 {
@@ -39,7 +50,10 @@ typedef struct  s_prog
     int             time_to_die;
     int             time_to_eat;
     struct s_philo  *philo;
-    int             nbr_meal;
+    pthread_mutex_t shared_mutex;
+    int             finish;
+    int             min_meal;
+    int             nbr_philo_finished_all_meals;
     struct timeval	launched_time;
 }               t_prog;
 
@@ -68,7 +82,9 @@ int	    ft_isdigit(int c);
 bool	ft_isnumber(const char *str);
 long	ft_atol(const char *str);
 void    assign_ressources(t_prog *prog);
-int    launch_diner(t_prog *prog);
+void    monitor_health(t_philo *philo);
+void    message_manager(t_philo *philo, char *message);
+int     launch_diner(t_prog *prog);
 
 
 
