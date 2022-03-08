@@ -15,8 +15,11 @@
 
 #include <stdbool.h>
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <sys/time.h>
 
 # define EXIT_SUCCESS 0
 # define EXIT_FAILURE 1
@@ -31,27 +34,32 @@
 
 typedef struct  s_prog
 {
-    int     nbr_philosophes;
-    int     time_to_sleep;
-    int     time_to_die;
-    int     time_to_eat;
-    int     must_eat;
-    t_philo *ptr_philo;
+    int             nbr_philosophes;
+    int             time_to_sleep;
+    int             time_to_die;
+    int             time_to_eat;
+    struct s_philo  *philo;
+    int             nbr_meal;
+    struct timeval	launched_time;
 }               t_prog;
 
-typedef struct s_fork
+typedef struct s_cyclelist
 {
-    int     data;
-    t_fork  *left;
-    t_fork  *right;
-}               t_fork;
+    int                 data;
+    pthread_mutex_t     *fork;
+    struct s_cyclelist  *next;
+}               t_cyclelist;
 
 typedef struct s_philo
 {
-    pthread_t   thread;
-    t_fork      *ptr_left;
-    t_fork      *ptr_right;
-    t_philo     *next;
+    pthread_t       thread;
+    size_t          philo_ref;
+    size_t          meals_eaten;
+    pthread_mutex_t *lfork;
+    pthread_mutex_t *rfork;
+    struct timeval	last_time_eat;
+    void            *next;
+    t_prog          *prog;
 }               t_philo;
 
 
@@ -59,6 +67,9 @@ bool	ft_isnegative(int nbr);
 int	    ft_isdigit(int c);
 bool	ft_isnumber(const char *str);
 long	ft_atol(const char *str);
+void    assign_ressources(t_prog *prog);
+int    launch_diner(t_prog *prog);
+
 
 
 #endif

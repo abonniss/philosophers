@@ -50,6 +50,8 @@ PATH_SRCS = srcs
 #SOURCES
 SRCS += philosophers.c
 SRCS += utils.c
+SRCS += assign_ressources.c
+SRCS += launch_diner.c
 
 #HEADERS
 HEADERS += philosophers.h
