@@ -1,8 +1,8 @@
-
 #include "philosophers.h"
 
 t_cyclelist *create_fork_node(void)
 {
+
     t_cyclelist *fork_node;
 
     fork_node = malloc(sizeof(t_cyclelist));
@@ -57,7 +57,10 @@ t_philo *create_philo_node(void)
     philo_node = malloc(sizeof(t_philo));
     if (philo_node == NULL)
         return (NULL);
-    memset(philo_node, 0, sizeof(t_philo));
+    memset(philo_node, 0, sizeof(t_cyclelist));
+    philo_node->lfork = malloc(sizeof(pthread_mutex_t));
+    philo_node->rfork = malloc(sizeof(pthread_mutex_t));
+    philo_node->meals_eaten = 0;
     return (philo_node);
 }
 
@@ -83,20 +86,22 @@ t_philo *create_philo_list(size_t nbr_of_nodes, t_prog *prog)
 
 void assign_ressources(t_prog *prog)
 {
-    t_cyclelist *fork;
+    t_cyclelist *list_fork;
     t_philo     *philo;
-    int      i;
+    size_t      i;
 
-    fork = create_fork_list(prog->nbr_philosophes);
+    list_fork = create_fork_list(prog->nbr_philosophes);
     philo = create_philo_list(prog->nbr_philosophes, prog);
     prog->philo = philo;
     i = 0;
     while (i < prog->nbr_philosophes)
     {
-        pthread_mutex_init(fork->fork, NULL);
-        philo->lfork = fork->fork;
-        philo->rfork = fork->next->fork;
-        fork = fork->next;
+        pthread_mutex_init(list_fork->fork, NULL);
+        pthread_mutex_init(philo->lfork, NULL);
+        pthread_mutex_init(philo->rfork, NULL);
+        philo->lfork = list_fork->fork;
+        philo->rfork = list_fork->next->fork;
+        list_fork = list_fork->next;
         philo = philo->next;
         ++i;
     }

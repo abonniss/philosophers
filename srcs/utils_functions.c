@@ -1,10 +1,25 @@
 
 #include "philosophers.h"
 
-void    message_manager(t_philo *philo, char *message);
+
+long long convert_time(struct timeval now)
 {
-    long long 
-    
-    pthread_mutex_lock(philo->prog->shared_mutex);
-    
+    long long		micro_second;
+
+	micro_second = now.tv_sec * 1000;
+	micro_second += now.tv_usec / 1000;
+	return (micro_second);
+}
+
+void    message_manager(t_philo *philo, char *message)
+{
+    long long       current_time_from_start;
+    struct timeval  now;
+
+    pthread_mutex_lock(philo->prog->write_mutex);
+    gettimeofday(&now, NULL);
+    current_time_from_start = convert_time(now) - convert_time(philo->prog->launched_time);
+    if (philo->prog->finish != STOP)
+        printf("%lld\t%zu\t%s\n", current_time_from_start, philo->philo_ref, message);
+    pthread_mutex_unlock(philo->prog->write_mutex);
 }

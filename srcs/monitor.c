@@ -1,7 +1,40 @@
 
 #include "philosophers.h"
 
-void monitor_health(t_philo *philo)
+void *monitor_meals(void *ptr)
 {
-    pthread_mutex_lock(philo->prog->);
+    t_prog *prog;
+
+    prog = ptr;
+    while (prog->finish != STOP)
+    {
+        pthread_mutex_lock(prog->dead_mutex);
+        if (prog->nbr_philo_finished_all_meals == prog->nbr_philosophes)
+            prog->finish = STOP;
+        pthread_mutex_unlock(prog->dead_mutex);
+    }
+    return (NULL);
+}
+
+void *monitor_health(void *ptr)
+{
+    t_philo *philo;
+    long long time_limit;
+    struct timeval now;
+
+    philo = ptr;
+    while (philo->prog->finish != STOP)
+    {
+        pthread_mutex_lock(philo->prog->dead_mutex);
+        gettimeofday(&now, NULL);
+        time_limit = convert_time(now) - convert_time(philo->last_time_eat);
+        gettimeofday(&now, NULL);
+        if (time_limit >= philo->prog->time_to_die && philo->prog->finish != STOP)
+        {
+            printf("%lld\t%zu\t%s\n", (convert_time(now) - convert_time(philo->prog->launched_time)), philo->philo_ref, DIED);
+            philo->prog->finish = STOP;
+        }
+        pthread_mutex_unlock(philo->prog->dead_mutex);
+    }
+    return (NULL);
 }

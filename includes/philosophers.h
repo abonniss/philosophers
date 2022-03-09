@@ -25,6 +25,7 @@
 # define EXIT_FAILURE           1
 
 # define MIN_INPUT              5
+# define MAX_INPUT              6
 # define SKIP_PROG_NAME         2
 
 # define PHILO_ARG              1
@@ -42,18 +43,21 @@
 # define DIED                   "died"
 
 # define STOP                   1
+# define EVEN_NUMBER_OF_PHILO   0
 
 typedef struct  s_prog
 {
-    int             nbr_philosophes;
+    size_t             nbr_philosophes;
     int             time_to_sleep;
     int             time_to_die;
     int             time_to_eat;
     struct s_philo  *philo;
-    pthread_mutex_t shared_mutex;
+    pthread_mutex_t *write_mutex;
+    pthread_mutex_t *dead_mutex;
+    pthread_mutex_t *meal_mutex;
     int             finish;
-    int             min_meal;
-    int             nbr_philo_finished_all_meals;
+    size_t             min_meal;
+    size_t             nbr_philo_finished_all_meals;
     struct timeval	launched_time;
 }               t_prog;
 
@@ -71,6 +75,7 @@ typedef struct s_philo
     size_t          meals_eaten;
     pthread_mutex_t *lfork;
     pthread_mutex_t *rfork;
+    // pthread_mutex_t *phil_mutex;
     struct timeval	last_time_eat;
     void            *next;
     t_prog          *prog;
@@ -82,9 +87,11 @@ int	    ft_isdigit(int c);
 bool	ft_isnumber(const char *str);
 long	ft_atol(const char *str);
 void    assign_ressources(t_prog *prog);
-void    monitor_health(t_philo *philo);
+void    *monitor_health(void *ptr);
+void    *monitor_meals(void *ptr);
 void    message_manager(t_philo *philo, char *message);
 int     launch_diner(t_prog *prog);
+long long convert_time(struct timeval	now);
 
 
 

@@ -49,10 +49,11 @@ PATH_SRCS = srcs
 
 #SOURCES
 SRCS += philosophers.c
-SRCS += utils.c
+SRCS += lib_functions.c
 SRCS += assign_ressources.c
 SRCS += launch_diner.c
 SRCS += utils_functions.c
+SRCS += monitor.c
 
 #HEADERS
 HEADERS += philosophers.h
