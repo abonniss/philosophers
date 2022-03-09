@@ -82,9 +82,6 @@ $(NAME): $(PATH_OBJS) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -I $(INCLUDES) -o $@
 	printf "$(GREEN)$@ IS READY\n$(NC)"
 
-FORCE: 
-	#permet de forcer la réalisationn de la lib
-
 $(OBJS): $(PATH_OBJS)/%.o: %.c $(HEADERS) Makefile
 	$(CC) $(CFLAGS) -I $(INCLUDES) -c $< -o $@
 	printf "$(CYAN)$< IS COMPILING                                 \n$(NC)"
