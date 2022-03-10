@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   monitor.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/10 10:50:07 by abonniss          #+#    #+#             */
+/*   Updated: 2022/03/10 15:13:46 by abonniss         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "philosophers.h"
 
@@ -31,7 +42,8 @@ void *monitor_health(void *ptr)
         gettimeofday(&now, NULL);
         if (time_limit >= philo->prog->time_to_die && philo->prog->finish != STOP)
         {
-            printf("%lld\t%zu\t%s\n", (convert_time(now) - convert_time(philo->prog->launched_time)), philo->philo_ref, DIED);
+            printf("%lld\t%zu\t%s\n", (convert_time(now) - 
+                convert_time(philo->prog->launched_time)), philo->philo_ref, DIED);
             philo->prog->finish = STOP;
         }
         pthread_mutex_unlock(philo->prog->dead_mutex);

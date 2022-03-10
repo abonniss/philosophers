@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abonniss <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/19 14:34:59 by abonniss          #+#    #+#              #
-#    Updated: 2022/02/19 14:35:04 by abonniss         ###   ########.fr        #
+#    Updated: 2022/03/10 18:35:52 by abonniss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,11 +49,17 @@ PATH_SRCS = srcs
 
 #SOURCES
 SRCS += philosophers.c
-SRCS += lib_functions.c
 SRCS += assign_ressources.c
-SRCS += launch_diner.c
-SRCS += utils_functions.c
+SRCS += fork_creation.c
+SRCS += philo_creation.c
+
+SRCS += thread_manager.c
+SRCS += routines.c
 SRCS += monitor.c
+
+SRCS += utils_functions.c
+SRCS += free_functions.c
+SRCS += lib_functions.c
 
 #HEADERS
 HEADERS += philosophers.h
@@ -72,7 +78,6 @@ GREEN 	= \033[32m
 CYAN 	= \033[36m
 RED 	= \033[31m
 ONELINE = \e[1A\r
-
 
 #RULES 
 
