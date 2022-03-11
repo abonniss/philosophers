@@ -6,7 +6,7 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 10:50:07 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/10 15:13:46 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/11 11:17:21 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void *monitor_meals(void *ptr)
     prog = ptr;
     while (prog->finish != STOP)
     {
-        pthread_mutex_lock(prog->dead_mutex);
+        pthread_mutex_lock(&prog->dead_mutex);
         if (prog->nbr_philo_finished_all_meals == prog->nbr_philosophes)
             prog->finish = STOP;
-        pthread_mutex_unlock(prog->dead_mutex);
+        pthread_mutex_unlock(&prog->dead_mutex);
     }
     return (NULL);
 }
@@ -36,7 +36,7 @@ void *monitor_health(void *ptr)
     philo = ptr;
     while (philo->prog->finish != STOP)
     {
-        pthread_mutex_lock(philo->prog->dead_mutex);
+        pthread_mutex_lock(&philo->prog->dead_mutex);
         gettimeofday(&now, NULL);
         time_limit = convert_time(now) - convert_time(philo->last_time_eat);
         gettimeofday(&now, NULL);
@@ -46,7 +46,7 @@ void *monitor_health(void *ptr)
                 convert_time(philo->prog->launched_time)), philo->philo_ref, DIED);
             philo->prog->finish = STOP;
         }
-        pthread_mutex_unlock(philo->prog->dead_mutex);
+        pthread_mutex_unlock(&philo->prog->dead_mutex);
     }
     return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 14:32:09 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/10 18:35:17 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/11 11:12:35 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int join_threads(t_prog *prog)
         philo = philo->next;
         ++i;
     }
-    pthread_mutex_destroy(prog->write_mutex);
-    pthread_mutex_destroy(prog->dead_mutex);
+    pthread_mutex_destroy(&prog->write_mutex);
+    pthread_mutex_destroy(&prog->dead_mutex);
     if (prog->min_meal != 0)
-        pthread_mutex_destroy(prog->meal_mutex);
+        pthread_mutex_destroy(&prog->meal_mutex);
     return (EXIT_SUCCESS);
 }
 
@@ -42,8 +42,8 @@ void launch_diner(t_prog *prog)
 
     philo = prog->philo;
     i = 0;
-    pthread_mutex_init(prog->write_mutex, NULL);
-    pthread_mutex_init(prog->dead_mutex, NULL);
+    pthread_mutex_init(&prog->write_mutex, NULL);
+    pthread_mutex_init(&prog->dead_mutex, NULL);
     gettimeofday(&prog->launched_time, NULL);
     while (i != prog->nbr_philosophes)
     {
@@ -57,7 +57,7 @@ void launch_diner(t_prog *prog)
     }
     if (prog->min_meal != 0)
     {
-        pthread_mutex_init(prog->meal_mutex, NULL);
+        pthread_mutex_init(&prog->meal_mutex, NULL);
         pthread_create(&thread, NULL, &monitor_meals, prog);
         pthread_detach(thread);
     }

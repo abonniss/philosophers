@@ -6,7 +6,7 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 12:31:47 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/10 18:35:34 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/11 11:16:16 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,8 @@ void free_fork(t_cyclelist *fork_head)
     }
 }
 
-void free_prog_mutex(t_prog *prog)
-{
-    free(prog->write_mutex);
-    if (prog->min_meal != 0)
-        free(prog->meal_mutex);
-    free(prog->dead_mutex);
-}
-
 void free_all(t_prog *prog)
 {
     free_fork(prog->fork);
     free_philo(prog->philo);
-    free_prog_mutex(prog);
 }

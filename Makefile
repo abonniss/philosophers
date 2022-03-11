@@ -6,7 +6,7 @@
 #    By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/19 14:34:59 by abonniss          #+#    #+#              #
-#    Updated: 2022/03/10 18:35:52 by abonniss         ###   ########.fr        #
+#    Updated: 2022/03/11 10:47:33 by abonniss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,12 @@ else ifeq ($(debug), 1)
 else ifeq ($(debug), 2)
 	CFLAGS += -g3
 	CFLAGS += -fsanitize=address,undefined
+	CFLAGS += -Wpadded
+else ifeq ($(debug), 3)
+	CFLAGS += -g3
+	CFLAGS += -fsanitize=address,undefined
 	CFLAGS += -Weverything
+	CFLAGS += -Wpadded
 endif
 
 #DEBUGS SYMBOLS

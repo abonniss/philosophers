@@ -6,7 +6,7 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 16:19:13 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/10 18:35:45 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/11 11:11:31 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ typedef struct  s_prog
     int                 time_to_die;
     int                 time_to_eat;
     struct s_philo      *philo;
-    pthread_mutex_t     *write_mutex;
-    pthread_mutex_t     *dead_mutex;
-    pthread_mutex_t     *meal_mutex;
+    pthread_mutex_t     write_mutex;
+    pthread_mutex_t     dead_mutex;
+    pthread_mutex_t     meal_mutex;
     int                 finish;
     size_t              min_meal;
     size_t              nbr_philo_finished_all_meals;
