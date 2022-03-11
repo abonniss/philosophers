@@ -6,47 +6,49 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 10:50:07 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/11 11:17:21 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/11 14:43:24 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void *monitor_meals(void *ptr)
+void	*monitor_meals(void *ptr)
 {
-    t_prog *prog;
+	t_prog	*prog;
 
-    prog = ptr;
-    while (prog->finish != STOP)
-    {
-        pthread_mutex_lock(&prog->dead_mutex);
-        if (prog->nbr_philo_finished_all_meals == prog->nbr_philosophes)
-            prog->finish = STOP;
-        pthread_mutex_unlock(&prog->dead_mutex);
-    }
-    return (NULL);
+	prog = ptr;
+	while (prog->finish != STOP)
+	{
+		pthread_mutex_lock(&prog->dead_mutex);
+		if (prog->nbr_philo_finished_all_meals == prog->nbr_philosophes)
+			prog->finish = STOP;
+		pthread_mutex_unlock(&prog->dead_mutex);
+	}
+	return (NULL);
 }
 
-void *monitor_health(void *ptr)
+void	*monitor_health(void *ptr)
 {
-    t_philo *philo;
-    long long time_limit;
-    struct timeval now;
+	t_philo			*philo;
+	long long		time_limit;
+	struct timeval	now;
 
-    philo = ptr;
-    while (philo->prog->finish != STOP)
-    {
-        pthread_mutex_lock(&philo->prog->dead_mutex);
-        gettimeofday(&now, NULL);
-        time_limit = convert_time(now) - convert_time(philo->last_time_eat);
-        gettimeofday(&now, NULL);
-        if (time_limit >= philo->prog->time_to_die && philo->prog->finish != STOP)
-        {
-            printf("%lld\t%zu\t%s\n", (convert_time(now) - 
-                convert_time(philo->prog->launched_time)), philo->philo_ref, DIED);
-            philo->prog->finish = STOP;
-        }
-        pthread_mutex_unlock(&philo->prog->dead_mutex);
-    }
-    return (NULL);
+	philo = ptr;
+	while (philo->prog->finish != STOP)
+	{
+		pthread_mutex_lock(&philo->prog->dead_mutex);
+		gettimeofday(&now, NULL);
+		time_limit = convert_time(now) - convert_time(philo->last_time_eat);
+		gettimeofday(&now, NULL);
+		if (time_limit >= philo->prog->time_to_die
+			&& philo->prog->finish != STOP)
+		{
+			printf("%lld\t%zu\t%s\n", (convert_time(now)
+					- convert_time(philo->prog->launched_time)),
+				philo->philo_ref, DIED);
+			philo->prog->finish = STOP;
+		}
+		pthread_mutex_unlock(&philo->prog->dead_mutex);
+	}
+	return (NULL);
 }

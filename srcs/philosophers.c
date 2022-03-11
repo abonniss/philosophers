@@ -6,57 +6,57 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 10:51:24 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/11 11:18:47 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/11 14:59:30 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-bool control_args(char** parameters)
+bool	control_args(char **parameters)
 {
-    size_t i;
-    
-    i = SKIP_PROG_NAME;
-    while (i != MIN_INPUT)
-    {
-        if (ft_isnumber(parameters[i]) == false || 
-            ft_isnegative(ft_atol(parameters[i])) == true)
-            return (false);
-        ++i;
-    }
-    if (parameters[MUST_EAT_INPUT])
-    {
-        if (ft_isnumber(parameters[MUST_EAT_INPUT]) == false || 
-            ft_isnegative(ft_atol(parameters[MUST_EAT_INPUT])) == true)
-            return (false);
-    }
-    return(true);
+	size_t	i;
+
+	i = SKIP_PROG_NAME;
+	while (i != MIN_INPUT)
+	{
+		if (ft_isnumber(parameters[i]) == false
+			|| ft_isnegative(ft_atol(parameters[i])) == true)
+			return (false);
+		++i;
+	}
+	if (parameters[MUST_EAT_INPUT])
+	{
+		if (ft_isnumber(parameters[MUST_EAT_INPUT]) == false
+			|| ft_isnegative(ft_atol(parameters[MUST_EAT_INPUT])) == true)
+			return (false);
+	}
+	return (true);
 }
 
-void fill_prog_info(char **inputs, t_prog *ptr_prog)
+void	fill_prog_info(char **inputs, t_prog *ptr_prog)
 {
-    memset(ptr_prog, 0, sizeof(t_prog));
-    ptr_prog->nbr_philosophes   = ft_atol(inputs[PHILO_ARG]);
-    ptr_prog->time_to_die       = ft_atol(inputs[TIME_TO_DIE_ARG]);
-    ptr_prog->time_to_eat       = ft_atol(inputs[TIME_TO_EAT_ARG]);
-    ptr_prog->time_to_sleep     = ft_atol(inputs[TIME_TO_SLEEP_ARG]);
-    if (inputs[MUST_EAT_INPUT])
-        ptr_prog->min_meal      = ft_atol(inputs[MUST_EAT_INPUT]);
+	ft_bzero(ptr_prog, sizeof(t_prog));
+	ptr_prog->nbr_philosophes = ft_atol(inputs[PHILO_ARG]);
+	ptr_prog->time_to_die = ft_atol(inputs[TIME_TO_DIE_ARG]);
+	ptr_prog->time_to_eat = ft_atol(inputs[TIME_TO_EAT_ARG]);
+	ptr_prog->time_to_sleep = ft_atol(inputs[TIME_TO_SLEEP_ARG]);
+	if (inputs[MUST_EAT_INPUT])
+		ptr_prog->min_meal = ft_atol(inputs[MUST_EAT_INPUT]);
 }
 
-int main (int ac, char** av)
+int	main(int ac, char **av)
 {
-    t_prog prog;
+	t_prog	prog;
 
-    if (ac != MIN_INPUT && ac != MAX_INPUT)
-        return (EXIT_FAILURE);   
-    if (control_args(av) != true)
-        return (EXIT_FAILURE);
-    fill_prog_info(av, &prog);
-    if (create_ressources(&prog) == MALLOC_ERROR)
-        return (EXIT_FAILURE);
-    launch_diner(&prog);
-    join_threads(&prog);
-    free_all(&prog);
-    return (EXIT_SUCCESS);
+	if (ac != MIN_INPUT && ac != MAX_INPUT)
+		return (EXIT_FAILURE);
+	if (control_args(av) != true)
+		return (EXIT_FAILURE);
+	fill_prog_info(av, &prog);
+	if (create_ressources(&prog) == MALLOC_ERROR)
+		return (EXIT_FAILURE);
+	launch_diner(&prog);
+	join_threads(&prog);
+	free_all(&prog);
+	return (EXIT_SUCCESS);
 }
