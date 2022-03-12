@@ -23,17 +23,18 @@ void	free_philo(t_philo *head)
 
 void	free_fork(t_cyclelist *fork_head)
 {
-	static t_cyclelist	*head = NULL;
+	t_cyclelist	*head;
+	t_cyclelist	*current_node;
 
-	if (head == NULL)
-		head = fork_head;
-	if (fork_head->next != head)
+	head = fork_head;
+	current_node = fork_head;
+	while (fork_head->next != head)
 	{
-		printf("Freeing fork_nbr (%zu)\n", fork_head->fork_nbr);
-		free_fork(fork_head->next);
-		free(fork_head);
+		free(current_node);
+		current_node = fork_head->next;
+		fork_head = fork_head->next;
 	}
-
+	free(current_node);
 }
 
 void	free_all(t_prog *prog)
