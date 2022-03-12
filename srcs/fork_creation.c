@@ -15,10 +15,15 @@
 t_cyclelist	*create_fork_node(void)
 {
 	t_cyclelist	*fork_node;
+	static size_t i = 1;
 
 	fork_node = malloc(sizeof(t_cyclelist));
 	if (fork_node != NULL)
 		ft_bzero(fork_node, sizeof(t_cyclelist));
+	fork_node->fork_nbr = i;
+	printf("Creating fork_nbr (%zu)\n", fork_node->fork_nbr);
+
+	i++;
 	return (fork_node);
 }
 

@@ -74,6 +74,7 @@ typedef struct s_cyclelist
     struct s_cyclelist  *next;
     pthread_mutex_t     fork;
     int                 data;
+    size_t              fork_nbr;
     char                pad[4];
 }               t_cyclelist;
 

@@ -27,11 +27,13 @@ void	free_fork(t_cyclelist *fork_head)
 
 	if (head == NULL)
 		head = fork_head;
-	if (fork_head != head)
+	if (fork_head->next != head)
 	{
+		printf("Freeing fork_nbr (%zu)\n", fork_head->fork_nbr);
 		free_fork(fork_head->next);
 		free(fork_head);
 	}
+
 }
 
 void	free_all(t_prog *prog)
