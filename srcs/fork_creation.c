@@ -6,7 +6,7 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 12:02:08 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/11 14:38:09 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/14 13:18:46 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_cyclelist	*create_fork_node(void)
 	t_cyclelist	*fork_node;
 
 	fork_node = malloc(sizeof(t_cyclelist));
+	pthread_mutex_init(&fork_node->fork, NULL);
 	if (fork_node != NULL)
 		ft_bzero(fork_node, sizeof(t_cyclelist));
 	return (fork_node);

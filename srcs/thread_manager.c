@@ -6,7 +6,7 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 14:32:09 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/11 15:10:24 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/14 13:21:12 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	launch_diner(t_prog *prog)
 	while (i != prog->nbr_philosophes)
 	{
 		philo->last_time_eat = prog->launched_time;
-		pthread_mutex_init(philo->lfork, NULL);
 		pthread_create(&philo->thread, NULL, &routine, philo);
 		pthread_create(&thread, NULL, &monitor_health, philo);
 		pthread_detach(thread);

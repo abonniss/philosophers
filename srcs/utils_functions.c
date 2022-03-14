@@ -6,7 +6,7 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 10:51:05 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/11 15:12:15 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/14 13:39:43 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ void	message_manager(t_philo *philo, char *message)
 	current_time_from_start = convert_time(now)
 		- convert_time(philo->prog->launched_time);
 	if (philo->prog->finish != STOP)
-		if (philo->prog->nbr_philo_finished_all_meals
-			!= philo->prog->min_meal)
-			printf("%lld\t%zu\t%s\n", current_time_from_start,
-				philo->philo_ref, message);
+		printf("%lld\t%zu\t%s\n", current_time_from_start, philo->philo_ref,
+				message);
 	pthread_mutex_unlock(&philo->prog->write_mutex);
 }
