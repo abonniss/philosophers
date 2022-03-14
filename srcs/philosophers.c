@@ -6,13 +6,13 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 10:51:24 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/11 14:59:30 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/14 12:19:22 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-bool	control_args(char **parameters)
+static bool	control_args(char **parameters)
 {
 	size_t	i;
 
@@ -20,7 +20,7 @@ bool	control_args(char **parameters)
 	while (i != MIN_INPUT)
 	{
 		if (ft_isnumber(parameters[i]) == false
-			|| ft_isnegative(ft_atol(parameters[i])) == true)
+			|| ft_isnegative((int)ft_atol(parameters[i])) == true)
 			return (false);
 		++i;
 	}
@@ -33,15 +33,16 @@ bool	control_args(char **parameters)
 	return (true);
 }
 
-void	fill_prog_info(char **inputs, t_prog *ptr_prog)
+static void	fill_prog_info(char **inputs, t_prog *ptr_prog)
 {
 	ft_bzero(ptr_prog, sizeof(t_prog));
-	ptr_prog->nbr_philosophes = ft_atol(inputs[PHILO_ARG]);
-	ptr_prog->time_to_die = ft_atol(inputs[TIME_TO_DIE_ARG]);
-	ptr_prog->time_to_eat = ft_atol(inputs[TIME_TO_EAT_ARG]);
-	ptr_prog->time_to_sleep = ft_atol(inputs[TIME_TO_SLEEP_ARG]);
+	ptr_prog->nbr_philosophes = (size_t)ft_atol(inputs[PHILO_ARG]);
+	ptr_prog->time_to_die = (useconds_t)ft_atol(inputs[TIME_TO_DIE_ARG]) * 1000;
+	ptr_prog->time_to_eat = (useconds_t)ft_atol(inputs[TIME_TO_EAT_ARG]) * 1000;
+	ptr_prog->time_to_sleep = (useconds_t)ft_atol(inputs[TIME_TO_SLEEP_ARG])
+								* 1000;
 	if (inputs[MUST_EAT_INPUT])
-		ptr_prog->min_meal = ft_atol(inputs[MUST_EAT_INPUT]);
+		ptr_prog->min_meal = (size_t)ft_atol(inputs[MUST_EAT_INPUT]);
 }
 
 int	main(int ac, char **av)
