@@ -6,7 +6,7 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 10:50:53 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/14 15:43:53 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/14 18:50:39 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ bool	ft_isnumber(const char *str)
 			return (false);
 		i++;
 	}
-	return (true);
+	return (i != 0);
 }
 
 static int	ft_isspace(char c)

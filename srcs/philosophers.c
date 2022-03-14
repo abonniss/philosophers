@@ -6,7 +6,7 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 10:51:24 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/14 18:44:55 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/14 18:53:44 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ int	main(int ac, char **av)
 	t_prog	prog;
 
 	if (ac != MIN_INPUT && ac != MAX_INPUT)
+	{
+		printf("Not the right number of args\n");
 		return (EXIT_FAILURE);
+	}
 	if (control_args(av) != true)
 	{
 		printf("Arguments are not correct\n");
