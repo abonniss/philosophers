@@ -6,7 +6,7 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 10:50:53 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/11 14:05:03 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/14 15:43:53 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	ft_isnegative(int nbr)
 	return (nbr < 0);
 }
 
-int	ft_isdigit(int c)
+static int	ft_isdigit(int c)
 {
 	if ((c >= '0') && (c <= '9'))
 		return (1);
@@ -37,7 +37,7 @@ bool	ft_isnumber(const char *str)
 			return (false);
 		i++;
 	}
-	return (i != 0);
+	return (true);
 }
 
 static int	ft_isspace(char c)
@@ -70,9 +70,4 @@ long	ft_atol(const char *str)
 		str++;
 	}
 	return (number *= signe);
-}
-
-void ft_bzero(void *ptr, size_t size)
-{
-	memset(ptr, 0, sizeof(size));
 }

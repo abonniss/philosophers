@@ -6,7 +6,7 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 10:51:34 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/14 13:12:55 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/14 15:04:55 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	assign_fork_to_philo(t_prog *prog, t_cyclelist *list_fork)
 		pthread_mutex_init(&list_fork->fork, NULL);
 		philo->rfork = &list_fork->fork;
 		philo->lfork = &list_fork->next->fork;
-		printf("Philo (%zu) - rfork (%p) - lfrok (%p)\n\n\n", philo->philo_ref, philo->rfork, philo->lfork);
 		list_fork = list_fork->next;
 		philo = philo->next;
 		++i;

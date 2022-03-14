@@ -6,7 +6,7 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 16:19:13 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/14 09:32:46 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/14 15:44:09 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 # define MIN_INPUT					5
 # define MAX_INPUT					6
-# define SKIP_PROG_NAME				2
+# define SKIP_PROG_NAME				1
 
 # define MALLOC_ERROR				20
 
@@ -52,69 +52,67 @@
 # define TWO_PHILOSOPHES			2
 # define MS_DELAY_OF_200			200
 
-typedef struct  s_prog
+typedef struct s_prog
 {
-    struct s_philo      *philo;
-    struct s_cyclelist  *fork;
-    size_t              nbr_philosophes;
-    size_t              min_meal;
-    size_t              nbr_philo_finished_all_meals;
-    useconds_t          time_to_sleep;
-    useconds_t          time_to_die;
-    useconds_t          time_to_eat;
-    int                 finish;
-    pthread_mutex_t     write_mutex;
-    pthread_mutex_t     dead_mutex;
-    struct timeval	    launched_time;
-
-}               t_prog;
+	struct s_philo		*philo;
+	struct s_cyclelist	*fork;
+	size_t				nbr_philosophes;
+	size_t				min_meal;
+	size_t				nbr_philo_finished_all_meals;
+	useconds_t			time_to_sleep;
+	useconds_t			time_to_die;
+	useconds_t			time_to_eat;
+	int					finish;
+	pthread_mutex_t		write_mutex;
+	pthread_mutex_t		dead_mutex;
+	struct timeval		launched_time;
+}						t_prog;
 
 typedef struct s_cyclelist
 {
-    struct s_cyclelist  *next;
-    pthread_mutex_t     fork;
-    int                 data;
-    char                pad[4];
-}               t_cyclelist;
+	struct s_cyclelist	*next;
+	pthread_mutex_t		fork;
+	int					data;
+	char				pad[4];
+}						t_cyclelist;
 
 typedef struct s_philo
 {
-    pthread_t       thread;
-    size_t          philo_ref;
-    size_t          meals_eaten;
-    pthread_mutex_t *lfork;
-    pthread_mutex_t *rfork;
-    struct timeval	last_time_eat;
-    void            *next;
-    t_prog          *prog;
-}               t_philo;
+	pthread_t		thread;
+	size_t			philo_ref;
+	size_t			meals_eaten;
+	pthread_mutex_t	*lfork;
+	pthread_mutex_t	*rfork;
+	struct timeval	last_time_eat;
+	void			*next;
+	t_prog			*prog;
+}					t_philo;
 
+/*#######################LIB_FUNCTIONS########################*/
+bool		ft_isnegative(int nbr);
+bool		ft_isnumber(const char *str);
+long		ft_atol(const char *str);
+void		ft_bzero(void *ptr, size_t size);
 
-bool	    ft_isnegative(int nbr);
-int	        ft_isdigit(int c);
-bool	    ft_isnumber(const char *str);
-long	    ft_atol(const char *str);
-void        ft_bzero(void *ptr, size_t size);
+/*#######################CREATE_RESSOURCES####################*/
+int			create_ressources(t_prog *prog);
+t_cyclelist	*create_fork_list(size_t nbr_of_nodes);
+t_philo		*create_philo_list(size_t nbr_of_nodes, t_prog *prog);
 
+/*#######################FREE_RESSOURCES#######################*/
+void		free_philo(t_philo *head);
+void		free_fork(t_cyclelist *fork_head);
+void		free_all(t_prog *prog);
 
-int         create_ressources(t_prog *prog);
-t_cyclelist *create_fork_list(size_t nbr_of_nodes);
-t_philo     *create_philo_node(void);
-t_philo     *create_philo_list(size_t nbr_of_nodes, t_prog *prog);
+/*#######################THREADS###############################*/
+void		launch_diner(t_prog *prog);
+void		*routine(void *node);
+int			join_threads(t_prog *prog);
+void		*monitor_health(void *ptr);
+void		*monitor_meals(void *ptr);
 
-
-void        free_philo(t_philo *head);
-void        free_fork(t_cyclelist *fork_head);
-void        free_prog_mutex(t_prog *prog);
-void        free_all(t_prog *prog);
-
-void        launch_diner(t_prog *prog);
-void        *routine(void *node);
-int         join_threads(t_prog *prog);
-void        *monitor_health(void *ptr);
-void        *monitor_meals(void *ptr);
-
-void        message_manager(t_philo *philo, char *message);
-long long   convert_time(struct timeval	now);
+/*#######################UTILS_FUNCTIONS#######################*/
+void		message_manager(t_philo *philo, char *message);
+long long	convert_time(struct timeval now);
 
 #endif

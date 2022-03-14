@@ -6,13 +6,13 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 10:51:50 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/14 13:38:04 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/14 15:35:57 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	picking_up_fork(t_philo *philo)
+static void	picking_up_fork(t_philo *philo)
 {
 	pthread_mutex_lock(philo->rfork);
 	message_manager(philo, TAKEN_FORK);
@@ -25,29 +25,26 @@ void	picking_up_fork(t_philo *philo)
 	message_manager(philo, TAKEN_FORK);
 }
 
-void	eating(t_philo *philo)
+static void	eating(t_philo *philo)
 {
 	if (philo->prog->finish != STOP)
 		message_manager(philo, EATING);
 	gettimeofday(&philo->last_time_eat, NULL);
 	philo->meals_eaten += ADDING_ONE_MEAL;
-
 	if (philo->meals_eaten == philo->prog->min_meal)
 		philo->prog->nbr_philo_finished_all_meals += ONE_PHILO_EAT_EVERY_MEAL;
 	usleep(philo->prog->time_to_eat);
-		// printf("Philo (%zu) - Repas mange (%zu) - Prog->philo finish all meals (%zu)\n", philo->philo_ref, philo->meals_eaten, philo->prog->nbr_philo_finished_all_meals);
 	pthread_mutex_unlock(philo->lfork);
 	pthread_mutex_unlock(philo->rfork);
-
 }
 
-void	sleeping(t_philo *philo)
+static void	sleeping(t_philo *philo)
 {
 	message_manager(philo, SLEEPING);
 	usleep(philo->prog->time_to_sleep);
 }
 
-void	thinking(t_philo *philo)
+static void	thinking(t_philo *philo)
 {
 	message_manager(philo, THINKING);
 }

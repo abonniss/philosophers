@@ -6,7 +6,7 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 10:50:07 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/14 13:35:00 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/14 15:04:09 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void	*monitor_health(void *ptr)
 		pthread_mutex_lock(&philo->prog->dead_mutex);
 		gettimeofday(&now, NULL);
 		time_limit = convert_time(now) - convert_time(philo->last_time_eat);
-		gettimeofday(&now, NULL);
 		if (time_limit >= philo->prog->time_to_die
 			&& philo->prog->finish != STOP)
 		{
+			gettimeofday(&now, NULL);
 			printf("%lld\t%zu\t%s\n", (convert_time(now)
 					- convert_time(philo->prog->launched_time)),
 				philo->philo_ref, DIED);

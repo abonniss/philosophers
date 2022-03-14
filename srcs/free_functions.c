@@ -6,7 +6,7 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 12:31:47 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/14 09:22:29 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/14 15:12:24 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	free_philo(t_philo *head)
 
 void	free_fork(t_cyclelist *fork_head)
 {
-	static t_cyclelist *head = NULL;
+	static t_cyclelist	*head = NULL;
 
 	if (fork_head == NULL)
-		return;
+		return ;
 	if (fork_head != head)
 	{
 		if (head == NULL)

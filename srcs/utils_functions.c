@@ -6,11 +6,16 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 10:51:05 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/14 13:39:43 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/14 15:29:17 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	ft_bzero(void *ptr, size_t size)
+{
+	memset(ptr, 0, sizeof(size));
+}
 
 long long	convert_time(struct timeval now)
 {
@@ -32,6 +37,6 @@ void	message_manager(t_philo *philo, char *message)
 		- convert_time(philo->prog->launched_time);
 	if (philo->prog->finish != STOP)
 		printf("%lld\t%zu\t%s\n", current_time_from_start, philo->philo_ref,
-				message);
+			message);
 	pthread_mutex_unlock(&philo->prog->write_mutex);
 }

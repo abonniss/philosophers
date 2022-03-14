@@ -6,13 +6,13 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 14:48:37 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/11 14:48:07 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/14 15:42:18 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-t_philo	*create_philo_node(void)
+static t_philo	*create_philo_node(void)
 {
 	t_philo	*philo_node;
 
@@ -30,14 +30,14 @@ t_philo	*create_philo_list(size_t nbr_of_nodes, t_prog *prog)
 	t_philo	*current_node;
 	size_t	i;
 
-	i = 1;
+	i = 0;
 	current_node = create_philo_node();
 	if (current_node == NULL)
 		return (NULL);
 	prog->philo = current_node;
-	current_node->philo_ref = i;
+	current_node->philo_ref = 1;
 	current_node->prog = prog;
-	while (i < nbr_of_nodes)
+	while (++i < nbr_of_nodes)
 	{
 		new_node = create_philo_node();
 		if (new_node == NULL)
@@ -49,7 +49,6 @@ t_philo	*create_philo_list(size_t nbr_of_nodes, t_prog *prog)
 		new_node->prog = prog;
 		current_node->next = new_node;
 		current_node = new_node;
-		++i;
 	}
 	return (prog->philo);
 }

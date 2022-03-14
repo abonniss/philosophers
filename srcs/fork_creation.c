@@ -6,13 +6,13 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 12:02:08 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/14 13:18:46 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/14 15:41:13 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-t_cyclelist	*create_fork_node(void)
+static t_cyclelist	*create_fork_node(void)
 {
 	t_cyclelist	*fork_node;
 
@@ -23,7 +23,7 @@ t_cyclelist	*create_fork_node(void)
 	return (fork_node);
 }
 
-int	add_fork_nodes(t_cyclelist **head)
+static int	add_fork_nodes(t_cyclelist **head)
 {
 	t_cyclelist	*new_node;
 	t_cyclelist	*node;
