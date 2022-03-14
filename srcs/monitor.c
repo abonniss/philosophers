@@ -6,7 +6,7 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 10:50:07 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/11 14:43:24 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/14 09:03:42 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*monitor_meals(void *ptr)
 	while (prog->finish != STOP)
 	{
 		pthread_mutex_lock(&prog->dead_mutex);
-		if (prog->nbr_philo_finished_all_meals == prog->nbr_philosophes)
+		if (prog->nbr_philo_finished_all_meals >= prog->nbr_philosophes)
 			prog->finish = STOP;
 		pthread_mutex_unlock(&prog->dead_mutex);
 	}
