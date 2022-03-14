@@ -6,7 +6,7 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 16:19:13 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/14 15:44:09 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/14 18:44:44 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,6 @@ void		*monitor_meals(void *ptr);
 /*#######################UTILS_FUNCTIONS#######################*/
 void		message_manager(t_philo *philo, char *message);
 long long	convert_time(struct timeval now);
+void		sleeper(useconds_t time_to_wait, t_philo *philo);
 
 #endif

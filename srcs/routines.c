@@ -6,7 +6,7 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 10:51:50 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/14 15:55:37 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/14 18:44:22 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	eating(t_philo *philo)
 	philo->meals_eaten += ADDING_ONE_MEAL;
 	if (philo->meals_eaten == philo->prog->min_meal)
 		philo->prog->nbr_philo_finished_all_meals += ONE_PHILO_EAT_EVERY_MEAL;
-	usleep(philo->prog->time_to_eat);
+	sleeper(philo->prog->time_to_eat, philo);
 	pthread_mutex_unlock(philo->lfork);
 	pthread_mutex_unlock(philo->rfork);
 }
@@ -41,7 +41,7 @@ static void	eating(t_philo *philo)
 static void	sleeping(t_philo *philo)
 {
 	message_manager(philo, SLEEPING);
-	usleep(philo->prog->time_to_sleep);
+	sleeper(philo->prog->time_to_sleep, philo);
 }
 
 static void	thinking(t_philo *philo)
