@@ -6,12 +6,12 @@
 #    By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/19 14:34:59 by abonniss          #+#    #+#              #
-#    Updated: 2022/03/14 09:12:24 by abonniss         ###   ########.fr        #
+#    Updated: 2022/03/14 16:21:04 by abonniss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #NAME
-NAME = philosophers
+NAME = philo
 
 #COMPILER
 CC = clang
