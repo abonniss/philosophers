@@ -6,7 +6,7 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 10:51:50 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/14 15:35:57 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/14 15:55:37 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static void	picking_up_fork(t_philo *philo)
 	message_manager(philo, TAKEN_FORK);
 	if (philo->prog->nbr_philosophes < TWO_PHILOSOPHES)
 	{
+		usleep(philo->prog->time_to_die * 1000);
 		pthread_mutex_unlock(philo->rfork);
-		usleep(philo->prog->time_to_die);
 	}
 	pthread_mutex_lock(philo->lfork);
 	message_manager(philo, TAKEN_FORK);

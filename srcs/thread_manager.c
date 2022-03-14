@@ -6,7 +6,7 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 14:32:09 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/14 13:21:12 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/14 15:54:10 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	join_threads(t_prog *prog)
 	while (i != prog->nbr_philosophes)
 	{
 		pthread_join(philo->thread, NULL);
-		pthread_mutex_destroy(philo->lfork);
+		pthread_mutex_destroy(philo->rfork);
 		philo = philo->next;
 		++i;
 	}
