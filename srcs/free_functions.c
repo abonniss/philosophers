@@ -6,7 +6,7 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 12:31:47 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/11 14:39:28 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/14 09:22:29 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,17 @@ void	free_philo(t_philo *head)
 
 void	free_fork(t_cyclelist *fork_head)
 {
-	t_cyclelist	*head;
-	t_cyclelist	*current_node;
+	static t_cyclelist *head = NULL;
 
-	head = fork_head;
-	current_node = fork_head;
-	while (fork_head->next != head)
+	if (fork_head == NULL)
+		return;
+	if (fork_head != head)
 	{
-		free(current_node);
-		current_node = fork_head->next;
-		fork_head = fork_head->next;
+		if (head == NULL)
+			head = fork_head;
+		free_fork(fork_head->next);
+		free(fork_head);
 	}
-	free(current_node);
 }
 
 void	free_all(t_prog *prog)

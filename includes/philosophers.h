@@ -6,7 +6,7 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 16:19:13 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/11 15:25:22 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/14 09:32:46 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ typedef struct  s_prog
     size_t              nbr_philosophes;
     size_t              min_meal;
     size_t              nbr_philo_finished_all_meals;
-    int                 time_to_sleep;
-    int                 time_to_die;
-    int                 time_to_eat;
+    useconds_t          time_to_sleep;
+    useconds_t          time_to_die;
+    useconds_t          time_to_eat;
     int                 finish;
     pthread_mutex_t     write_mutex;
     pthread_mutex_t     dead_mutex;
