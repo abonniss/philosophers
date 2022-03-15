@@ -6,7 +6,7 @@
 /*   By: abonniss <abonniss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 10:51:05 by abonniss          #+#    #+#             */
-/*   Updated: 2022/03/14 18:46:00 by abonniss         ###   ########.fr       */
+/*   Updated: 2022/03/15 18:43:25 by abonniss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,19 @@ void	ft_bzero(void *ptr, size_t size)
 	memset(ptr, 0, sizeof(size));
 }
 
-void	sleeper(useconds_t time_to_wait, t_philo *philo)
+void	sleeper(useconds_t time_to_wait, t_prog *prog)
 {
-	useconds_t	i;
+	long long		time;
+	struct timeval	now;
 
-	i = 0;
-	while (i < time_to_wait)
+	gettimeofday(&now, NULL);
+	time = convert_time(now);
+	while (prog->finish != STOP)
 	{
-		usleep(10);
-		if (philo->prog->finish == STOP)
+		gettimeofday(&now, NULL);
+		if ((convert_time(now) - time) > time_to_wait)
 			break ;
-		++i;
+		usleep(50);
 	}
 }
 
